@@ -4,8 +4,8 @@ from datetime import datetime
 from pynput import keyboard
 from tkinter import ttk
 
-window_width = 1800
-window_height = 950
+window_width = 1918
+window_height = 1030
 
 # tab 1
 patvar = 0
@@ -22,8 +22,8 @@ blue_fouls = 0
 round_counter = 0
 
 # tab 3
-counter = 0
-running = False
+counter3 = 0
+running3 = False
 red_score = 0
 blue_score = 0
 tie_score = 0
@@ -347,15 +347,15 @@ class MainApplication(tk.Frame):
         bf.place(relx=0.9175, rely=0.24)
         round.place(relx=0.4875, rely=0.32)
 
-        redwarninc.place(relx=0.22, rely=0.27)
-        redwarndec.place(relx=0.22, rely=0.635)
-        redfoulinc.place(relx=0.055, rely=0.325)
-        redfouldec.place(relx=0.055, rely=0.58)
-        bluewarninc.place(relx=0.755, rely=0.27)
-        bluewarndec.place(relx=0.755, rely=0.635)
-        bluefoulinc.place(relx=0.915, rely=0.325)
-        bluefouldec.place(relx=0.915, rely=0.58)
-        roundcounterinc.place(relx=0.486, rely=0.365)
+        redwarninc.place(relx=0.22, rely=0.275)
+        redwarndec.place(relx=0.22, rely=0.633)
+        redfoulinc.place(relx=0.056, rely=0.33)
+        redfouldec.place(relx=0.056, rely=0.577)
+        bluewarninc.place(relx=0.755, rely=0.275)
+        bluewarndec.place(relx=0.755, rely=0.633)
+        bluefoulinc.place(relx=0.915, rely=0.33)
+        bluefouldec.place(relx=0.915, rely=0.577)
+        roundcounterinc.place(relx=0.486, rely=0.368)
         roundcounterdec.place(relx=0.486, rely=0.54)
         
         
@@ -382,38 +382,38 @@ class MainApplication(tk.Frame):
         tab3.grid_rowconfigure(7,weight=1)
         tab3.grid_rowconfigure(8,weight=1)
 
-        def counter_label(label):
-            def count():
-                if running:
-                    global counter
-                    tt = datetime.fromtimestamp(counter)
-                    string = tt.strftime("%M:%S")
-                    display = string
-                    label.config(text=display)
-                    label.after(1000, count)
-                    counter += 1
-            count()
-        def Start(label):
-            global running
-            running = True
-            counter_label(label)
-            start['state'] = 'disabled'
-            stop['state'] = 'normal'
-            reset['state'] = 'normal'
-        def Stop():
-            global running
-            start['state'] = 'normal'
-            stop['state'] = 'disabled'
-            reset['state'] = 'normal'
-            running = False
-        def Reset(label):
-            global counter
-            counter = 0
-            if running == False:
-                reset['state'] = 'disabled'
-                label['text'] = 'Ready'
+        def counter_label3(label3):
+            def count3():
+                if running3:
+                    global counter3
+                    tt = datetime.fromtimestamp(counter3)
+                    string3 = tt.strftime("%M:%S")
+                    display = string3
+                    label3.config(text=display)
+                    label3.after(1000, count3)
+                    counter3 += 1
+            count3()
+        def Start3(label3):
+            global running3
+            running3 = True
+            counter_label3(label3)
+            start3['state'] = 'disabled'
+            stop3['state'] = 'normal'
+            reset3['state'] = 'normal'
+        def Stop3():
+            global running3
+            start3['state'] = 'normal'
+            stop3['state'] = 'disabled'
+            reset3['state'] = 'normal'
+            running3 = False
+        def Reset3(label3):
+            global counter3
+            counter3 = 0
+            if running3 == False:
+                reset3['state'] = 'disabled'
+                label3['text'] = 'Ready'
             else:
-                label['text'] = 'Starting...'
+                label3['text'] = 'Starting...'
         def score_red_inc():
             global red_score
             red_score += 1
@@ -447,28 +447,38 @@ class MainApplication(tk.Frame):
             label_blue_score.config(text=blue_score)
             label_tie_score.config(text=tie_score)
 
-        time_label = tk.Label(tab3, text="Ready", bg='black', fg="white", font="Verdana 150 bold")
-        start = tk.Button(tab3, text='Start', font="Verdana 10 bold", width=10, height=2, command=lambda: Start(time_label))
-        stop = tk.Button(tab3, text='Stop', font="Verdana 10 bold", width=10, height=2, state='disabled', command=Stop)
-        reset = tk.Button(tab3, text='Reset', font="Verdana 10 bold", width=10, height=2, state='disabled', command=lambda: Reset(time_label))
+        time_label3 = tk.Label(tab3, text="Ready", bg='black', fg="white", font="Verdana 150 bold")
+        start3 = tk.Button(tab3, text='Start', font="Verdana 10 bold", width=10, height=2, command=lambda: Start3(time_label3))
+        stop3 = tk.Button(tab3, text='Stop', font="Verdana 10 bold", width=10, height=2, state='disabled', command=Stop3)
+        reset3 = tk.Button(tab3, text='Reset', font="Verdana 10 bold", width=10, height=2, state='disabled', command=lambda: Reset3(time_label3))
+        
         label_red_score = tk.Label(tab3, text=red_score, font='Verdana 250 bold', bg='black', fg='white')
         label_blue_score = tk.Label(tab3, text=blue_score, font='Verdana 250 bold', bg='black', fg='white')
         label_tie_score = tk.Label(tab3, text=tie_score, font='Verdana 160 bold', bg='black', fg='white')
-        redscoreinc = tk.Button(tab3, text="1 point", font='Verdana 15 bold', command=score_red_inc, width=6, height=1)
-        redscoredec = tk.Button(tab3, text="1 point", font='Verdana 15 bold', command=score_red_dec, width=6, height=1)
-        bluescoreinc = tk.Button(tab3, text="1 point", font='Verdana 15 bold', command=score_blue_inc, width=6, height=1)
-        bluescoredec = tk.Button(tab3, text="1 point", font='Verdana 15 bold', command=score_blue_dec, width=6, height=1)
+        redscoreinc = tk.Button(tab3, text="+1 point", font='Verdana 10 bold', command=score_red_inc, width=7, height=1)
+        redscoredec = tk.Button(tab3, text="-1 point", font='Verdana 10 bold', command=score_red_dec, width=7, height=1)
+        bluescoreinc = tk.Button(tab3, text="+1 point", font='Verdana 10 bold', command=score_blue_inc, width=7, height=1)
+        bluescoredec = tk.Button(tab3, text="-1 point", font='Verdana 10 bold', command=score_blue_dec, width=7, height=1)
+        tiescoreinc = tk.Button(tab3, text="+1 point", font='Verdana 10 bold', command=score_tie_inc, width=7, height=1)
+        tiescoredec = tk.Button(tab3, text="-1 point", font='Verdana 10 bold', command=score_tie_dec, width=7, height=1)
         reset_all = tk.Button(tab3, text='Reset Scores', command=reset_all, width=15)
 
 
-        time_label.grid(row=1, column=3)
-        start.grid(row=6, column=3)
-        stop.grid(row=7, column=3)
-        reset.grid(row=8, column=3)
+        time_label3.grid(row=1, column=3)
+        start3.grid(row=6, column=3)
+        stop3.grid(row=7, column=3)
+        reset3.grid(row=8, column=3)
         reset_all.grid(row=9, column=3)
         label_red_score.grid(row=2, column=2)
         label_blue_score.grid(row=2, column=4)
         label_tie_score.grid(row=2, column=3)
+
+        redscoreinc.place(relx=0.18, rely=0.283, anchor='center')
+        redscoredec.place(relx=0.18, rely=0.698, anchor='center')
+        bluescoreinc.place(relx=0.82, rely=0.283, anchor='center')
+        bluescoredec.place(relx=0.82, rely=0.698, anchor='center')
+        tiescoreinc.place(relx=0.5, rely=0.353, anchor='center')
+        tiescoredec.place(relx=0.5, rely=0.628, anchor='center')
         
                 
         

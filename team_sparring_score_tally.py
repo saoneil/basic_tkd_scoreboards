@@ -110,10 +110,12 @@ reset = tk.Button(root, text='Reset', font="Verdana 10 bold", width=10, height=2
 label_red_score = tk.Label(root, text=red_score, font='Verdana 250 bold', bg='black', fg='white')
 label_blue_score = tk.Label(root, text=blue_score, font='Verdana 250 bold', bg='black', fg='white')
 label_tie_score = tk.Label(root, text=tie_score, font='Verdana 160 bold', bg='black', fg='white')
-redscoreinc = tk.Button(root, text="1 point", font='Verdana 15 bold', command=score_red_inc, width=6, height=1)
-redscoredec = tk.Button(root, text="1 point", font='Verdana 15 bold', command=score_red_dec, width=6, height=1)
-bluescoreinc = tk.Button(root, text="1 point", font='Verdana 15 bold', command=score_blue_inc, width=6, height=1)
-bluescoredec = tk.Button(root, text="1 point", font='Verdana 15 bold', command=score_blue_dec, width=6, height=1)
+redscoreinc = tk.Button(root, text="+1 point", font='Verdana 10 bold', command=score_red_inc, width=7, height=1)
+redscoredec = tk.Button(root, text="-1 point", font='Verdana 10 bold', command=score_red_dec, width=7, height=1)
+bluescoreinc = tk.Button(root, text="+1 point", font='Verdana 10 bold', command=score_blue_inc, width=7, height=1)
+bluescoredec = tk.Button(root, text="-1 point", font='Verdana 10 bold', command=score_blue_dec, width=7, height=1)
+tiescoreinc = tk.Button(root, text="+1 point", font='Verdana 10 bold', command=score_tie_inc, width=7, height=1)
+tiescoredec = tk.Button(root, text="-1 point", font='Verdana 10 bold', command=score_tie_dec, width=7, height=1)
 reset_all = tk.Button(root, text='Reset Scores', command=reset_all, width=15)
 
 
@@ -125,6 +127,13 @@ reset_all.grid(row=9, column=3)
 label_red_score.grid(row=2, column=2)
 label_blue_score.grid(row=2, column=4)
 label_tie_score.grid(row=2, column=3)
+
+redscoreinc.place(relx=0.18, rely=0.283, anchor='center')
+redscoredec.place(relx=0.18, rely=0.698, anchor='center')
+bluescoreinc.place(relx=0.82, rely=0.283, anchor='center')
+bluescoredec.place(relx=0.82, rely=0.698, anchor='center')
+tiescoreinc.place(relx=0.5, rely=0.353, anchor='center')
+tiescoredec.place(relx=0.5, rely=0.628, anchor='center')
 
 
 COMBINATIONS = []
