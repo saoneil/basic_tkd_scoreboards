@@ -33,6 +33,7 @@ blue_score4 = 0
 
 gui = Tk()
 gui.geometry('1918x1030')
+gui.title("Performance Taekwon-Do | NS Open")
 
 nb = ttk.Notebook(gui, width=window_width, height=window_height)
 nb.pack()
