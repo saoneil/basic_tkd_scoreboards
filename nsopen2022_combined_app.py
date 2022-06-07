@@ -149,7 +149,7 @@ fourthdanlist = [
                     "Moon-Moo" #20
         ]
 
-pattern_string = "          "
+pattern_string = ""
 pattern_label = Label(tab1, text=pattern_string, font = "Verdana 180 bold", bg = "white")
 pattern_label.place(relx=0.5, rely=0.2, anchor='center')
 
@@ -201,6 +201,10 @@ def display():
     elif patvar == 1:
         pattern_label.config(text=pattern2)
         patvar = 0
+def pattern_reset():
+    global patvar
+    pattern_label.config(text="")
+    patvar = 0
 
 firstdan1 = Button(tab1, text="1st Dan - Generate", command = firstdan, width=19, height=2, fg="white", bg = "black", font="Verdana 10 bold")
 firstdan1.place(relx=0.05, rely=0.90, anchor='center')
@@ -218,6 +222,8 @@ fourthdan1 = Button(tab1, text="4th-6th Dan - Generate", command = fourthdan, wi
 fourthdan1.place(relx=0.95, rely=0.90, anchor='center')
 fourthdan2 = Button(tab1, text="Display", command = display, width=19, height=2, fg="white", bg = "black", font="Verdana 10 bold")
 fourthdan2.place(relx=0.95, rely=0.95, anchor='center')
+patternreset = Button(tab1, text="Reset", command = pattern_reset, width=10, height=1, fg='white', bg='black', font="Verdana 8")
+patternreset.place(relx=0.5, rely=0.01, anchor='center')
 
 
 ##
