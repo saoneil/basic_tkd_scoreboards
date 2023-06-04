@@ -13,7 +13,7 @@ root = tk.Tk()
 root.title("Performance Taekwon-Do | Team Sparring")
 root.protocol("WM_DELETE_WINDOW", quit_me)
 
-bg = tk.PhotoImage(file="bg_image.png")
+bg = tk.PhotoImage(file=r'C:\\Users\\saone\\Documents\\Python Stuff\\basic_tkd_scoreboards\\bg_image.png')
 main_title = tk.Label(root, image=bg)
 main_title.place(x=0, y=0, relwidth=1, relheight=1)
 
