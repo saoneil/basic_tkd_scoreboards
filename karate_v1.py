@@ -19,7 +19,7 @@ root.protocol("WM_DELETE_WINDOW", quit_me)
 root.geometry('1000x500')
 
 canv = Canvas(root, bg="white", height=1000, width=500)
-img_filename3 = PhotoImage(file=r'C:\\Users\\saone\\Documents\\Python Stuff\\basic_tkd_scoreboards\\bg_image - kumite.png')
+img_filename3 = PhotoImage(file=Path(__file__).resolve().parent / "bg_image - kumite.png")
 background_label3 = Label(root, image=img_filename3)
 background_label3.place(x=0, y=0, relwidth=1, relheight=1)
 canv.pack()
