@@ -3,7 +3,9 @@ from tkinter import *
 from tkinter import ttk
 from datetime import datetime
 from pynput import keyboard
-import winsound
+import pygame
+import time, os
+from pathlib import Path
 
 def quit_me():
     print('quit')
@@ -32,6 +34,16 @@ blue_warnings_count = 0
 senshu_ao = 0
 
 
+pygame.mixer.init()
+
+def play_sound(sound_type):
+    root_dir = Path(__file__).resolve().parent
+    if sound_type == "short_beep":
+        pygame.mixer.music.load(root_dir / "short_beep.mp3")
+        pygame.mixer.music.play()
+    elif sound_type == "long_beep":
+        pygame.mixer.music.load(root_dir / "long_beep.mp3")
+        pygame.mixer.music.play()
 def update_counter(*args):
     selected_time = time_var.get()
     time_label.config(text=str(selected_time))
@@ -50,11 +62,12 @@ def counter_label(label):
             label.after(1000, count)
             counter -= 1
             if counter == 14:
-                winsound.Beep(2500, 200)
-                winsound.Beep(2500, 200)
+                play_sound("short_beep")
+                time.sleep(0.3)
+                play_sound("short_beep")
             if counter == -1:
                 Stop()
-                winsound.Beep(3000, 800)
+                play_sound("long_beep")
     count()
 def Start(label):
     global running
@@ -132,7 +145,7 @@ def award_senshu_ao():
 
 time_var = tk.StringVar(root)
 time_var.set("Select Timer")
-option_list = ["02:00", "02:30", "03:00", "01:00", "00:30", "00:18"]
+option_list = ["02:00", "02:30", "03:00", "01:00", "00:30", "00:18", "00:25"]
 timer_select = tk.OptionMenu(root, time_var, *option_list)
 timer_select.place(relx=0.5, rely=0.45, anchor="center")
 counter = tk.IntVar(root)
