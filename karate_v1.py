@@ -145,7 +145,7 @@ def award_senshu_ao():
 
 time_var = tk.StringVar(root)
 time_var.set("Select Timer")
-option_list = ["02:00", "02:30", "03:00", "01:00", "00:30", "00:18", "00:25"]
+option_list = ["02:00", "02:30", "03:00", "01:00", "00:30", "00:18", "00:25", "01:30"]
 timer_select = tk.OptionMenu(root, time_var, *option_list)
 timer_select.place(relx=0.5, rely=0.45, anchor="center")
 counter = tk.IntVar(root)
