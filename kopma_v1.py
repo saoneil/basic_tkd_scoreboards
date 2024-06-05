@@ -6,8 +6,8 @@ from pathlib import Path
 import time, os
 import pygame
 
-# tab 1
 pygame.mixer.init()
+# tab 1
 kumite_counter = 0
 kumite_running = False
 kumite_red_score = 0
@@ -19,6 +19,7 @@ kumite_senshu_ao = 0
 
 # tab 2
 patvar = 0
+pattern = ""
 window_width = 1918
 window_height = 1030
 
@@ -62,10 +63,9 @@ background_label3.place(x=0, y=0, relwidth=1, relheight=1)
 C3.pack()
 
 
-##
+################################
 ## TAB 1
-##
-
+################################
 def kumite_play_sound(sound_type):
     root_dir = Path(__file__).resolve().parent
     if sound_type == "short_beep":
@@ -175,7 +175,7 @@ def kumite_award_senshu_ao():
 
 kumite_time_var = StringVar(tab1)
 kumite_time_var.set("Select Timer")
-option_list = ["03:00", 
+kumite_option_list = ["03:00", 
                "02:30", 
                "02:00", 
                "01:00", 
@@ -196,7 +196,7 @@ option_list = ["03:00",
                "00:02",
                "00:01",
                ]
-kumite_timer_select = OptionMenu(tab1, kumite_time_var, *option_list)
+kumite_timer_select = OptionMenu(tab1, kumite_time_var, *kumite_option_list)
 kumite_timer_select.place(relx=0.5, rely=0.45, anchor="center")
 kumite_counter = IntVar(tab1)
 kumite_time_var.trace('w', kumite_update_counter)
@@ -250,10 +250,9 @@ blue_dec_warn = Button(tab1, text="-", font="verdana 10 bold", command=kumite_re
 blue_dec_warn.place(relx=0.55, rely=0.68)
 
 
-##
+################################
 ## TAB 2
-##
-
+################################
 firstdanlist = [
                     'Chon-Ji', #0
                     'Dan-Gun', #1
@@ -333,83 +332,136 @@ pattern_string = ""
 pattern_label = Label(tab2, text=pattern_string, font = "Verdana 180 bold", bg = "white")
 pattern_label.place(relx=0.5, rely=0.2, anchor='center')
 
+## world cup
 def firstdan():
-    global pattern1, pattern2, patvar
+    global pattern, patvar
     copylist = firstdanlist.copy()
-    num1 = random.randint(9,11)
-    pattern1 = copylist[num1]
-    print(copylist[num1])
-    copylist.remove(copylist[num1])
-    num2 = random.randint(0, 10)
-    pattern2 = copylist[num2]
-    print(copylist[num2])
+    num = random.randint(0,11)
+    pattern = copylist[num]
+    print(copylist[num])
+    pattern_label.config(text="")
 def seconddan():
-    global pattern1, pattern2, patvar
+    global pattern, patvar
     copylist = seconddanlist.copy()
-    num1 = random.randint(12,14)
-    pattern1 = copylist[num1]
-    print(copylist[num1])
-    copylist.remove(copylist[num1])
-    num2 = random.randint(0, 13)
-    pattern2 = copylist[num2]
-    print(copylist[num2])
+    num = random.randint(0,14)
+    pattern = copylist[num]
+    print(copylist[num])
+    pattern_label.config(text="")
 def thirddan():
-    global pattern1, pattern2, patvar
+    global pattern, patvar
     copylist = thirddanlist.copy()
-    num1 = random.randint(15,17)
-    pattern1 = copylist[num1]
-    print(copylist[num1])
-    copylist.remove(copylist[num1])
-    num2 = random.randint(0, 16)
-    pattern2 = copylist[num2]
-    print(copylist[num2])
+    num = random.randint(0,17)
+    pattern = copylist[num]
+    print(copylist[num])
+    pattern_label.config(text="")
 def fourthdan():
-    global pattern1, pattern2, patvar
+    global pattern, patvar
     copylist = fourthdanlist.copy()
-    num1 = random.randint(18,20)
-    pattern1 = copylist[num1]
-    print(copylist[num1])
-    copylist.remove(copylist[num1])
-    num2 = random.randint(0, 19)
-    pattern2 = copylist[num2]
-    print(copylist[num2])
+    num = random.randint(0,20)
+    pattern = copylist[num]
+    print(copylist[num])
+    pattern_label.config(text="")
 def display():
     global patvar
     if patvar == 0:
-        pattern_label.config(text=pattern1)
-        patvar = 1
-    elif patvar == 1:
-        pattern_label.config(text=pattern2)
-        patvar = 0
+        pattern_label.config(text=pattern)
+        # patvar = 1
 def pattern_reset():
     global patvar
     pattern_label.config(text="")
     patvar = 0
 
 firstdan1 = Button(tab2, text="1st Dan - Generate", command = firstdan, width=19, height=2, fg="white", bg = "black", font="Verdana 10 bold")
-firstdan1.place(relx=0.05, rely=0.90, anchor='center')
-firstdan2 = Button(tab2, text="Display", command = display, width=19, height=2, fg="white", bg = "black", font="Verdana 10 bold")
-firstdan2.place(relx=0.05, rely=0.95, anchor='center')
+firstdan1.place(relx=0.40, rely=0.95, anchor='e')
 seconddan1 = Button(tab2, text="2nd Dan - Generate", command = seconddan, width=19, height=2, fg="white", bg = "black", font="Verdana 10 bold")
-seconddan1.place(relx=0.35, rely=0.90, anchor='center')
-seconddan2 = Button(tab2, text="Display", command = display, width=19, height=2, fg="white", bg = "black", font="Verdana 10 bold")
-seconddan2.place(relx=0.35, rely=0.95, anchor='center')
+seconddan1.place(relx=0.50, rely=0.95, anchor='e')
 thirddan1 = Button(tab2, text="3rd Dan - Generate", command = thirddan, width=19, height=2, fg="white", bg = "black", font="Verdana 10 bold")
-thirddan1.place(relx=0.65, rely=0.90, anchor='center')
-thirddan2 = Button(tab2, text="Display", command = display, width=19, height=2, fg="white", bg = "black", font="Verdana 10 bold")
-thirddan2.place(relx=0.65, rely=0.95, anchor='center')
+thirddan1.place(relx=0.50, rely=0.95, anchor='w')
 fourthdan1 = Button(tab2, text="4th-6th Dan - Generate", command = fourthdan, width=19, height=2, fg="white", bg = "black", font="Verdana 10 bold")
-fourthdan1.place(relx=0.95, rely=0.90, anchor='center')
-fourthdan2 = Button(tab2, text="Display", command = display, width=19, height=2, fg="white", bg = "black", font="Verdana 10 bold")
-fourthdan2.place(relx=0.95, rely=0.95, anchor='center')
+fourthdan1.place(relx=0.60, rely=0.95, anchor='w')
 patternreset = Button(tab2, text="Reset", command = pattern_reset, width=10, height=1, fg='white', bg='black', font="Verdana 8")
 patternreset.place(relx=0.5, rely=0.01, anchor='center')
+seconddan2 = Button(tab2, text="Display", command = display, width=10, height=1, fg="white", bg = "black", font="Verdana 8")
+seconddan2.place(relx=0.5, rely=0.03, anchor='center')
+
+## world championships
+# def firstdan():
+#     global pattern1, pattern2, patvar
+#     copylist = firstdanlist.copy()
+#     num1 = random.randint(9,11)
+#     pattern1 = copylist[num1]
+#     print(copylist[num1])
+#     copylist.remove(copylist[num1])
+#     num2 = random.randint(0, 10)
+#     pattern2 = copylist[num2]
+#     print(copylist[num2])
+# def seconddan():
+#     global pattern1, pattern2, patvar
+#     copylist = seconddanlist.copy()
+#     num1 = random.randint(12,14)
+#     pattern1 = copylist[num1]
+#     print(copylist[num1])
+#     copylist.remove(copylist[num1])
+#     num2 = random.randint(0, 13)
+#     pattern2 = copylist[num2]
+#     print(copylist[num2])
+# def thirddan():
+#     global pattern1, pattern2, patvar
+#     copylist = thirddanlist.copy()
+#     num1 = random.randint(15,17)
+#     pattern1 = copylist[num1]
+#     print(copylist[num1])
+#     copylist.remove(copylist[num1])
+#     num2 = random.randint(0, 16)
+#     pattern2 = copylist[num2]
+#     print(copylist[num2])
+# def fourthdan():
+#     global pattern1, pattern2, patvar
+#     copylist = fourthdanlist.copy()
+#     num1 = random.randint(18,20)
+#     pattern1 = copylist[num1]
+#     print(copylist[num1])
+#     copylist.remove(copylist[num1])
+#     num2 = random.randint(0, 19)
+#     pattern2 = copylist[num2]
+#     print(copylist[num2])
+# def display():
+#     global patvar
+#     if patvar == 0:
+#         pattern_label.config(text=pattern1)
+#         patvar = 1
+#     elif patvar == 1:
+#         pattern_label.config(text=pattern2)
+#         patvar = 0
+# def pattern_reset():
+#     global patvar
+#     pattern_label.config(text="")
+#     patvar = 0
 
 
-##
+# firstdan1 = Button(tab2, text="1st Dan - Generate", command = firstdan, width=19, height=2, fg="white", bg = "black", font="Verdana 10 bold")
+# firstdan1.place(relx=0.05, rely=0.90, anchor='center')
+# firstdan2 = Button(tab2, text="Display", command = display, width=19, height=2, fg="white", bg = "black", font="Verdana 10 bold")
+# firstdan2.place(relx=0.05, rely=0.95, anchor='center')
+# seconddan1 = Button(tab2, text="2nd Dan - Generate", command = seconddan, width=19, height=2, fg="white", bg = "black", font="Verdana 10 bold")
+# seconddan1.place(relx=0.35, rely=0.90, anchor='center')
+# seconddan2 = Button(tab2, text="Display", command = display, width=19, height=2, fg="white", bg = "black", font="Verdana 10 bold")
+# seconddan2.place(relx=0.35, rely=0.95, anchor='center')
+# thirddan1 = Button(tab2, text="3rd Dan - Generate", command = thirddan, width=19, height=2, fg="white", bg = "black", font="Verdana 10 bold")
+# thirddan1.place(relx=0.65, rely=0.90, anchor='center')
+# thirddan2 = Button(tab2, text="Display", command = display, width=19, height=2, fg="white", bg = "black", font="Verdana 10 bold")
+# thirddan2.place(relx=0.65, rely=0.95, anchor='center')
+# fourthdan1 = Button(tab2, text="4th-6th Dan - Generate", command = fourthdan, width=19, height=2, fg="white", bg = "black", font="Verdana 10 bold")
+# fourthdan1.place(relx=0.95, rely=0.90, anchor='center')
+# fourthdan2 = Button(tab2, text="Display", command = display, width=19, height=2, fg="white", bg = "black", font="Verdana 10 bold")
+# fourthdan2.place(relx=0.95, rely=0.95, anchor='center')
+# patternreset = Button(tab2, text="Reset", command = pattern_reset, width=10, height=1, fg='white', bg='black', font="Verdana 8")
+# patternreset.place(relx=0.5, rely=0.01, anchor='center')
+
+
+################################
 ## TAB 3
-##
-
+################################
 tab3.grid_columnconfigure(1,weight=1)
 tab3.grid_columnconfigure(2,weight=1)
 tab3.grid_columnconfigure(3,weight=1)
@@ -425,36 +477,57 @@ tab3.grid_rowconfigure(6,weight=1)
 tab3.grid_rowconfigure(7,weight=1)
 tab3.grid_rowconfigure(8,weight=1)
 
+def play_sound(sound_type):
+    root_dir = Path(__file__).resolve().parent
+    if sound_type == "short_beep":
+        pygame.mixer.music.load(root_dir / "short_beep.mp3")
+        pygame.mixer.music.play()
+    elif sound_type == "long_beep":
+        pygame.mixer.music.load(root_dir / "long_beep.mp3")
+        pygame.mixer.music.play()
+def sparring_update_counter(*args):
+    selected_time = time_var.get()
+    time_label.config(text=str(selected_time))
+    hours, minutes = map(int, selected_time.split(':'))
+    global sparring_counter
+    sparring_counter = hours * 60 + minutes
 def sparring_counter_label(label):
     def sparring_count():
-        if sparring_running:
-            global sparring_counter
+        global sparring_counter
+        if running:
             tt = datetime.fromtimestamp(sparring_counter)
             string = tt.strftime("%M:%S")
+            print(string)
             display = string
             label.config(text=display)
             label.after(1000, sparring_count)
-            sparring_counter += 1
+            sparring_counter -= 1
+            if sparring_counter == 14:
+                play_sound("short_beep")
+                time.sleep(0.3)
+                play_sound("short_beep")
+            if sparring_counter == -1:
+                sparring_Stop()
+                play_sound("long_beep")
     sparring_count()
 def sparring_Start(label):
-    global sparring_running
-    sparring_running = True
+    global running
+    running = True
     sparring_counter_label(label)
     start['state'] = 'disabled'
     stop['state'] = 'normal'
     reset['state'] = 'normal'
 def sparring_Stop():
-    global sparring_running
+    global running
     start['state'] = 'normal'
     stop['state'] = 'disabled'
     reset['state'] = 'normal'
-    sparring_running = False
+    running = False
 def sparring_Reset(label):
-    global sparring_counter
-    sparring_counter = 0
-    if sparring_running == False:
+    sparring_update_counter()
+    if running == False:
         reset['state'] = 'disabled'
-        label['text'] = 'Ready'
+        label['text'] = time_var.get()
     else:
         label['text'] = 'Starting...'
 def sparring_warn_red_inc():
@@ -473,14 +546,14 @@ def sparring_warn_blue_dec():
     global sparring_blue_warnings
     sparring_blue_warnings -= 1
     label_blue_warnings.config(text=sparring_blue_warnings)
-def sparring_round_counter_inc():
-    global sparring_round_counter
-    sparring_round_counter += 1
-    label_round_counter.config(text=sparring_round_counter)
-def sparring_round_counter_dec():
-    global sparring_round_counter
-    sparring_round_counter -= 1
-    label_round_counter.config(text=sparring_round_counter)
+# def sparring_round_counter_inc():
+#     global sparring_round_counter
+#     sparring_round_counter += 1
+#     label_round_counter.config(text=sparring_round_counter)
+# def sparring_round_counter_dec():
+#     global sparring_round_counter
+#     sparring_round_counter -= 1
+#     label_round_counter.config(text=sparring_round_counter)
 def sparring_red_foul_inc():
     global sparring_red_fouls
     sparring_red_fouls += 1
@@ -506,27 +579,63 @@ def sparring_reset_all():
     sparring_blue_fouls = 0
     label_red_warnings.config(text=sparring_red_warnings)
     label_blue_warnings.config(text=sparring_blue_warnings)
-    label_round_counter.config(text=sparring_round_counter)
+    # label_round_counter.config(text=sparring_round_counter)
     label_red_fouls.config(text=sparring_red_fouls)
     label_blue_fouls.config(text=sparring_blue_fouls)
     sparring_Stop()
     sparring_Reset(time_label)
 
-time_label = Label(tab3, text="Ready", bg='black', fg="white", font="Verdana 130 bold")
-start = Button(tab3, text='Start Time', font="Verdana 10 bold", width=10, height=2, command=lambda: sparring_Start(time_label))
-stop = Button(tab3, text='Stop Time', font="Verdana 10 bold", width=10, height=2, state='disabled', command=sparring_Stop)
+
+time_var = StringVar(tab3)
+time_var.set("Select Timer")
+option_list = ["03:00", 
+               "02:30", 
+               "02:00", 
+               "01:00", 
+               "00:30", 
+               "00:20", 
+               "00:18",
+               "00:16",
+               "00:14",
+               "00:12",
+               "00:10",
+               "00:09",
+               "00:08",
+               "00:07",
+               "00:06",
+               "00:05",
+               "00:04",
+               "00:03",
+               "00:02",
+               "00:01",
+               ]
+timer_select = OptionMenu(tab3, time_var, *option_list)
+timer_select.place(relx=0.5, rely=0.20, anchor="center")
+counter = IntVar(tab3)
+time_var.trace('w', sparring_update_counter)
+
+time_label = Label(tab3, text="00:00", fg="white", font="Verdana 100 bold", bg="black", width=50)
+time_label.place(relx=0.5, rely=0.1, anchor='center')
+
+start = Button(tab3, text='Start', font="Verdana 10 bold", width=10, height=2, command=lambda: sparring_Start(time_label))
+start.place(relx=0.5, rely=0.80, anchor='center')
+stop = Button(tab3, text='Stop', font="Verdana 10 bold", width=10, height=2, state='disabled', command=sparring_Stop)
+stop.place(relx=0.5, rely=0.86, anchor='center')
 reset = Button(tab3, text='Reset Time', font="Verdana 10 bold", width=10, height=2, state='disabled', command=lambda: sparring_Reset(time_label))
+reset.place(relx=0.5, rely=0.92, anchor='center')
+reset_all = Button(tab3, text='Reset All', command=sparring_reset_all, width=10)
+reset_all.place(relx=0.5, rely=0.98, anchor='center')
 
 label_red_warnings = Label(tab3, text=sparring_red_warnings, font='Verdana 300 bold', bg='#2744a0', fg='white')
 label_red_fouls = Label(tab3, text=sparring_red_fouls, font='Verdana 200 bold', bg='#2744a0', fg='white')
 label_blue_warnings = Label(tab3, text=sparring_blue_warnings, font='Verdana 300 bold', bg='#ed1c24', fg='white')
 label_blue_fouls = Label(tab3, text=sparring_blue_fouls, font='Verdana 200 bold', bg='#ed1c24', fg='white')
-label_round_counter = Label(tab3, text=sparring_round_counter, font='Verdana 100 bold', bg='black', fg='white')
+# label_round_counter = Label(tab3, text=sparring_round_counter, font='Verdana 100 bold', bg='black', fg='white')
 rw = Label(tab3, text="Warnings", font='Verdana 10 bold', bg='#2744a0', fg='white')
 bw = Label(tab3, text="Warnings", font='Verdana 10 bold', bg='#ed1c24', fg='white')
 rf = Label(tab3, text="Fouls", font='Verdana 10 bold', bg='#2744a0', fg='white')
 bf = Label(tab3, text="Fouls", font='Verdana 10 bold', bg='#ed1c24', fg='white')
-round = Label(tab3, text="Round", font='Verdana 10 bold', bg='black', fg='white')
+# round = Label(tab3, text="Round", font='Verdana 10 bold', bg='black', fg='white')
 
 redwarninc = Button(tab3, text="redwarning+", font='Verdana 5 bold', command=sparring_warn_red_inc, width=15, height=4)
 redwarndec = Button(tab3, text="redwarning-", font='Verdana 5 bold', command=sparring_warn_red_dec, width=15, height=4)
@@ -536,27 +645,20 @@ bluewarninc = Button(tab3, text="bluewarning+", font='Verdana 5 bold', command=s
 bluewarndec = Button(tab3, text="bluewarning-", font='Verdana 5 bold', command=sparring_warn_blue_dec, width=15, height=4)
 bluefoulinc = Button(tab3, text="bluefoul+", font='Verdana 5 bold', command=sparring_blue_foul_inc, width=15, height=4)
 bluefouldec = Button(tab3, text="bluefoul-", font='Verdana 5 bold', command=sparring_blue_foul_dec, width=15, height=4)
-roundcounterinc = Button(tab3, text="round+", font='Verdana 5 bold', command=sparring_round_counter_inc, width=15, height=4)
-roundcounterdec = Button(tab3, text="round-", font='Verdana 5 bold', command=sparring_round_counter_dec, width=15, height=4)
-reset_all = Button(tab3, text='Reset All', command=sparring_reset_all, width=15)
-
-time_label.place(relx=0.5, rely=0.1, anchor='center')
-start.place(relx=0.5, rely=0.75, anchor='center')
-stop.place(relx=0.5, rely=0.85, anchor='center')
-reset.place(relx=0.5, rely=0.94, anchor='center')
-reset_all.place(relx=0.5, rely=0.98, anchor='center')
+# roundcounterinc = Button(tab3, text="round+", font='Verdana 5 bold', command=sparring_round_counter_inc, width=15, height=4)
+# roundcounterdec = Button(tab3, text="round-", font='Verdana 5 bold', command=sparring_round_counter_dec, width=15, height=4)
 
 label_red_warnings.place(relx=0.305, rely=0.50, anchor='center')
 label_red_fouls.place(relx=0.095, rely=0.50, anchor='center')
 label_blue_warnings.place(relx=0.695, rely=0.50, anchor='center')
 label_blue_fouls.place(relx=0.905, rely=0.50, anchor='center')
-label_round_counter.place(relx=0.5, rely=0.5105, anchor='center')
+# label_round_counter.place(relx=0.5, rely=0.5105, anchor='center')
 
 rw.place(relx=0.305, rely=0.30, anchor='center')
 rf.place(relx=0.095, rely=0.339, anchor='center')
 bw.place(relx=0.695, rely=0.30, anchor='center')
 bf.place(relx=0.905, rely=0.339, anchor='center')
-round.place(relx=0.50, rely=0.379, anchor='center')
+# round.place(relx=0.50, rely=0.379, anchor='center')
 
 redwarninc.place(relx=0.305, rely=0.332, anchor='center')
 redwarndec.place(relx=0.305, rely=0.69, anchor='center')
@@ -566,8 +668,8 @@ bluewarninc.place(relx=0.695, rely=0.332, anchor='center')
 bluewarndec.place(relx=0.695, rely=0.69, anchor='center')
 bluefoulinc.place(relx=0.905, rely=0.372, anchor='center')
 bluefouldec.place(relx=0.905, rely=0.65, anchor='center')
-roundcounterinc.place(relx=0.50, rely=0.411, anchor='center')
-roundcounterdec.place(relx=0.50, rely=0.613, anchor='center')
+# roundcounterinc.place(relx=0.50, rely=0.411, anchor='center')
+# roundcounterdec.place(relx=0.50, rely=0.613, anchor='center')
 
 
 
